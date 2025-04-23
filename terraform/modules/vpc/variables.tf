@@ -23,14 +23,14 @@ variable "public_subnets" {
   type        = list(string)
 }
 
-variable "enable_nat_gateway" {
-  description = "Whether to enable NAT Gateway"
-  type        = bool
-  default     = false
+variable "protected_subnets" {
+  description = "List of protected subnet CIDRs"
+  type        = list(string)
+  default     = []
 }
 
-variable "enable_vpn_gateway" {
-  description = "Whether to enable VPN Gateway"
+variable "enable_nat_gateway" {
+  description = "Whether to enable NAT Gateway"
   type        = bool
   default     = false
 }
@@ -39,4 +39,4 @@ variable "tags" {
   description = "A map of tags to assign to the resource"
   type        = map(string)
   default     = {}
-}
+} 
