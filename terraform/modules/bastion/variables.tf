@@ -34,3 +34,8 @@ variable "tags" {
   type        = map(string)
   default     = {}
 } 
+
+variable "iam_instance_profile" {
+  description = "Bastion IAM Profile"
+  type = string
+}
