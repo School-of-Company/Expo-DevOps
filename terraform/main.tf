@@ -78,3 +78,45 @@ module "ecs_fargate" {
   task_cpu              = 256
   task_memory           = 512
 }
+
+module "s3" {
+  source = "./modules/s3"
+
+  name                     = "expo"
+  cloudfront_distribution_arn = module.cloudfront.distribution_arn
+  tags = {
+    Environment = "production"
+  }
+}
+
+module "rds" {
+  source = "./modules/rds"
+}
+
+module "amplify" {
+  source = "./modules/amplify"
+}
+
+module "lambda" {
+  source = "./modules/lambda"
+}
+
+module "codebuild" {
+  source = "./modules/codebuild"
+}
+
+module "codepipline" {
+  source = "./modules/codepipeline"
+}
+
+module "cloudfront" {
+  source = "./modules/cloudfront"
+
+  name              = "expo"
+  s3_origin_domain  = module.s3.bucket_regional_domain_name
+  alb_origin_domain = module.alb.alb_dns_name
+  certificate_arn   = module.acm.certificate_arn
+  tags = {
+    Environment = "production"
+  }
+}
