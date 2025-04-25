@@ -1,4 +1,4 @@
-resource "aws_lb" "this" {
+resource "aws_lb" "expo-alb" {
   name               = var.name
   internal           = var.internal
   load_balancer_type = "application"
@@ -10,7 +10,7 @@ resource "aws_lb" "this" {
   tags = var.tags
 }
 
-resource "aws_lb_target_group" "this" {
+resource "aws_lb_target_group" "expo-tg" {
   name        = "${var.name}-tg"
   port        = var.target_group_port
   protocol    = var.target_group_protocol
@@ -35,7 +35,7 @@ resource "aws_lb_target_group" "this" {
 resource "aws_lb_listener" "http" {
   count = var.enable_http ? 1 : 0
 
-  load_balancer_arn = aws_lb.this.arn
+  load_balancer_arn = aws_lb.expo-alb.arn
   port              = 80
   protocol          = "HTTP"
 
@@ -53,7 +53,7 @@ resource "aws_lb_listener" "http" {
 resource "aws_lb_listener" "https" {
   count = var.enable_https ? 1 : 0
 
-  load_balancer_arn = aws_lb.this.arn
+  load_balancer_arn = aws_lb.expo-alb.arn
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
@@ -61,6 +61,6 @@ resource "aws_lb_listener" "https" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.this.arn
+    target_group_arn = aws_lb_target_group.expo-tg.arn
   }
 } 

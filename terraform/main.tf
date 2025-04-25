@@ -40,6 +40,14 @@ module "ecr" {
   name = "expo-ecr"
 }
 
+module "acm" {
+  source = "./modules/acm"
+
+  domain_name               = var.domain_name
+  subject_alternative_names = var.subject_alternative_names
+  wait_for_validation      = false
+}
+
 module "alb" {
   source = "./modules/alb"
 
@@ -49,7 +57,7 @@ module "alb" {
   subnet_ids         = module.vpc.public_subnets
   vpc_id             = module.vpc.vpc_id
   enable_https       = true
-  certificate_arn    = var.certificate_arn
+  certificate_arn    = module.acm.certificate_arn
 }
 
 module "ecs_fargate" {

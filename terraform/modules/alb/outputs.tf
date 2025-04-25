@@ -1,21 +1,21 @@
 output "alb_arn" {
   description = "ARN of the ALB"
-  value       = aws_lb.this.arn
+  value       = aws_lb.expo-alb.arn
 }
 
 output "alb_dns_name" {
   description = "DNS name of the ALB"
-  value       = aws_lb.this.dns_name
+  value       = aws_lb.expo-alb.dns_name
 }
 
 output "target_group_arn" {
   description = "ARN of the target group"
-  value       = aws_lb_target_group.this.arn
+  value       = aws_lb_target_group.expo-tg.arn
 }
 
 output "target_group_name" {
   description = "Name of the target group"
-  value       = aws_lb_target_group.this.name
+  value       = aws_lb_target_group.expo-tg.name
 }
 
 output "https_listener_arn" {

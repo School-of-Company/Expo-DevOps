@@ -7,11 +7,19 @@ variable "bastion_ami_id" {
 variable "key_name" {
   description = "Name of the SSH key pair"
   type        = string
+  default     = "expo-key"
 }
 
-variable "certificate_arn" {
-  description = "ARN of the SSL certificate for HTTPS"
+variable "domain_name" {
+  description = "The domain name for which the certificate should be issued"
   type        = string
+  default     = "startup-expo.kr"
+}
+
+variable "subject_alternative_names" {
+  description = "A list of domains that should be SANs in the issued certificate"
+  type        = list(string)
+  default     = ["*.startup-expo.kr"]
 }
 
 
