@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "expo-image" {
-  bucket = "${var.name}-image-bucket"
+  bucket = "${var.name}-bucket"
 
   tags = var.tags
 }
