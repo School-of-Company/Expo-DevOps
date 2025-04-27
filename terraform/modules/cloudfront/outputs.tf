@@ -1,19 +1,15 @@
 output "distribution_id" {
   description = "ID of the CloudFront distribution"
-  value       = aws_cloudfront_distribution.this.id
+  value       = aws_cloudfront_distribution.expo-cf.id
 }
 
 output "distribution_arn" {
   description = "ARN of the CloudFront distribution"
-  value       = aws_cloudfront_distribution.this.arn
+  value       = aws_cloudfront_distribution.expo-cf.arn
 }
 
 output "domain_name" {
   description = "Domain name of the CloudFront distribution"
-  value       = aws_cloudfront_distribution.this.domain_name
+  value       = aws_cloudfront_distribution.expo-cf.domain_name
 }
 
-output "oac_id" {
-  description = "ID of the CloudFront Origin Access Control"
-  value       = aws_cloudfront_origin_access_control.this.id
-} 

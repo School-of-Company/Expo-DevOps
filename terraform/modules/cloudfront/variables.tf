@@ -22,4 +22,9 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
   default     = {}
+}
+
+variable "expo_qr_s3_domain" {
+  description = "The domain name of the expo-qr S3 bucket"
+  type        = string
 } 

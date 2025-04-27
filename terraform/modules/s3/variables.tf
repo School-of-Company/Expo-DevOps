@@ -12,4 +12,9 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
   default     = {}
+}
+
+variable "cloudfront_arn" {
+  description = "The ARN of the CloudFront distribution"
+  type        = string
 } 

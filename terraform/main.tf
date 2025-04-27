@@ -45,7 +45,7 @@ module "acm" {
 
   domain_name               = var.domain_name
   subject_alternative_names = var.subject_alternative_names
-  wait_for_validation      = false
+  wait_for_validation       = false
 }
 
 module "alb" {
@@ -63,27 +63,39 @@ module "alb" {
 module "ecs_fargate" {
   source = "./modules/ecs-fargate"
 
-  cluster_name            = "expo-cluster"
-  task_family            = "expo-task"
-  container_name         = "expo-container"
-  container_image        = "${module.ecr.repository_url}:latest"
-  service_name           = "expo-service"
-  subnet_ids             = module.vpc.private_subnets
-  security_group_ids     = [module.sg.ecs_sg_id]
-  target_group_arn       = module.alb.target_group_arn
-  execution_role_arn     = module.iam.ecs_execution_role_arn
-  task_role_arn          = module.iam.ecs_task_role_arn
+  cluster_name              = "expo-cluster"
+  task_family               = "expo-task"
+  container_name            = "expo-container"
+  container_image           = "${module.ecr.repository_url}:latest"
+  service_name              = "expo-service"
+  subnet_ids                = module.vpc.private_subnets
+  security_group_ids        = [module.sg.ecs_sg_id]
+  target_group_arn          = module.alb.target_group_arn
+  execution_role_arn        = module.iam.ecs_execution_role_arn
+  task_role_arn             = module.iam.ecs_task_role_arn
   enable_container_insights = true
-  desired_count          = 2
-  task_cpu              = 256
-  task_memory           = 512
+  desired_count             = 2
+  task_cpu                  = 256
+  task_memory               = 512
 }
 
-module "s3" {
+module "s3_image" {
   source = "./modules/s3"
 
-  name                     = "expo"
+  name                        = "expo-image"
   cloudfront_distribution_arn = module.cloudfront.distribution_arn
+  cloudfront_arn              = module.cloudfront.distribution_arn
+  tags = {
+    Environment = "production"
+  }
+}
+
+module "s3_qr" {
+  source = "./modules/s3"
+
+  name                        = "expo-qr"
+  cloudfront_distribution_arn = module.cloudfront.distribution_arn
+  cloudfront_arn              = module.cloudfront.distribution_arn
   tags = {
     Environment = "production"
   }
@@ -113,9 +125,10 @@ module "cloudfront" {
   source = "./modules/cloudfront"
 
   name              = "expo"
-  s3_origin_domain  = module.s3.bucket_regional_domain_name
+  s3_origin_domain  = module.s3_image.image_bucket_regional_domain_name
   alb_origin_domain = module.alb.alb_dns_name
   certificate_arn   = module.acm.certificate_arn
+  expo_qr_s3_domain = module.s3_qr.qr_bucket_regional_domain_name
   tags = {
     Environment = "production"
   }
