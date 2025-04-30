@@ -103,6 +103,11 @@ module "s3_qr" {
 
 module "rds" {
   source = "./modules/rds"
+
+  subnet_ids         = module.vpc.protected_subnets
+  security_group_id  = module.sg.rds_sg_id
+  db_username        = var.db_username
+  db_password        = var.db_password
 }
 
 module "amplify" {
@@ -119,6 +124,13 @@ module "codebuild" {
 
 module "codepipline" {
   source = "./modules/codepipeline"
+}
+
+module "elasticache" {
+  source = "./modules/elasticache"
+
+  subnet_ids        = module.vpc.protected_subnets
+  security_group_id = module.sg.elasticache_sg_id
 }
 
 module "cloudfront" {

@@ -22,4 +22,15 @@ variable "subject_alternative_names" {
   default     = ["*.startup-expo.kr"]
 }
 
+variable "db_username" {
+  description = "Username for the master DB user"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Password for the master DB user"
+  type        = string
+  sensitive   = true
+}
+
 
