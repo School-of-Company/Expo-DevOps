@@ -114,7 +114,7 @@ QR 생성 및 조회 서비스, 행사 관리자용 웹 서비스, 백엔드 API
 
 - **WAF**로 SQL Injection, XSS 등 기본 공격 필터링
 - **CloudFront**로 공격 트래픽 차단 & 캐싱 최적화
-- *Subnet 분리(Public / Private / Protected)**로 보안 강화
+- **Subnet 분리(Public / Private / Protected)**로 보안 강화
 - **IAM 기반 최소 권한 접근 정책 적용**
 - **Bastion Host를 통한 내부 자원 접근**
 
@@ -131,3 +131,4 @@ QR 생성 및 조회 서비스, 행사 관리자용 웹 서비스, 백엔드 API
 3. **백엔드 개발자**
     - GitHub Push → CodeBuild → ECS 자동 배포
     - 배포 결과는 Discord로 실시간 알림
+
