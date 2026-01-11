@@ -1,5 +1,6 @@
 # Startup Expo 인프라 아키텍처
-![starup_ecs_archi drawio](https://github.com/user-attachments/assets/7beb062c-74e9-41e3-bae1-f9f79fd721bc)
+<img width="1310" height="810" alt="expo-archi drawio" src="https://github.com/user-attachments/assets/e71b9403-a4c5-4c89-828f-55d750f15f9e" />
+
 
 본 문서는 **Startup Expo 서비스의 전체 인프라 구조**를 설명합니다.
 
@@ -131,5 +132,6 @@ QR 생성 및 조회 서비스, 행사 관리자용 웹 서비스, 백엔드 API
 3. **백엔드 개발자**
     - GitHub Push → CodeBuild → ECS 자동 배포
     - 배포 결과는 Discord로 실시간 알림
+
 
 
